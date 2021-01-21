@@ -14,9 +14,6 @@
 </template>
 
 <script>
-// import posts saved JSON data
-import posts from "~/posts.json";
-
 export default {
   validate({ params }) {
     return /^\d+$/.test(params.id);

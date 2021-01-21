@@ -1,20 +1,39 @@
 <template>
   <div>
+    <!-- navigation -->
+    <nav
+      class="navbar has-shadow"
+      role="navigation"
+      aria-label="main navigation"
+    >
+      <div class="container">
+        <div class="navbar-start">
+          <nuxt-link
+            active-class="is-active"
+            to="/"
+            class="navbar-item is-tab"
+            exact
+            >Home</nuxt-link
+          >
+          <nuxt-link
+            active-class="is-active"
+            to="/about"
+            class="navbar-item is-tab"
+            exact
+            >About</nuxt-link
+          >
+        </div>
+      </div>
+    </nav>
+    <!-- /navigation -->
     <Nuxt />
   </div>
 </template>
 
 <style>
 html {
-  font-family:
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;

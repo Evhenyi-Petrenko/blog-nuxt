@@ -76,7 +76,9 @@ export default Vue.extend({
         .doc(id)
         .set(newPost);
     },
-    computed: {},
+    computed: {
+      posts() {}
+    },
     mounted() {}
   }
 });

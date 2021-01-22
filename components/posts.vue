@@ -58,7 +58,7 @@ export default Vue.extend({
   // },
   data() {
     return {
-      posts: [],
+      posts: this.$store.state.posts,
       postForm: false
     };
   },
@@ -76,12 +76,7 @@ export default Vue.extend({
         .doc(id)
         .set(newPost);
     },
-    computed: {
-      async getPosts() {
-        this.posts = await this.$store.dispatch("nuxtServerInit");
-        console.log(this.posts);
-      }
-    },
+    computed: {},
     mounted() {}
   }
 });

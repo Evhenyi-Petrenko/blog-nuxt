@@ -31,7 +31,9 @@
             </div>
             <footer class="card-footer">
               <nuxt-link
-                :to="`/post/${post.title.toLowerCase().replace(/ /g, '-')}`"
+                :to="
+                  `/post/${post.title.toLowerCase().replace(/\W+(?!$)/g, '-')}`
+                "
                 class="card-footer-item"
               >
                 Read More
@@ -50,6 +52,10 @@ import Vue from "vue";
 import faker from "faker";
 
 export default Vue.extend({
+  // async fetch({ store }) {
+  //   const posts = await store.dispatch("fetch");
+  //   this.posts = posts;
+  // },
   data() {
     return {
       posts: [],
@@ -57,9 +63,6 @@ export default Vue.extend({
     };
   },
   methods: {
-    pushPost() {
-      base.forEach(el => db.collection("posts").add(el));
-    },
     addPost() {
       let newPost = {
         title: faker.name.title(),
@@ -68,20 +71,18 @@ export default Vue.extend({
         author: faker.internet.email(),
         published: faker.date.month()
       };
-
       const id = db.collection("posts").doc().id;
       db.collection("posts")
         .doc(id)
         .set(newPost);
-      this.getPost();
     },
-    async getPost() {
-      const postsDB = await db.collection("posts").get();
-      this.posts = postsDB.docs.map(post => post.data());
-    }
-  },
-  mounted() {
-    this.getPost();
+    computed: {
+      async getPosts() {
+        this.posts = await this.$store.dispatch("nuxtServerInit");
+        console.log(this.posts);
+      }
+    },
+    mounted() {}
   }
 });
 </script>

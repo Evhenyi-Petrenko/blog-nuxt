@@ -22,6 +22,7 @@
             exact
             >About</nuxt-link
           >
+          <nuxt-link active-class="is-active" to="/admin">Admin</nuxt-link>
         </div>
       </div>
     </nav>

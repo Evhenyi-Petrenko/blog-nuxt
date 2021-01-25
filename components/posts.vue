@@ -26,12 +26,7 @@
               </div>
             </div>
             <footer class="card-footer">
-              <nuxt-link
-                :to="
-                  `/post/${post.title.toLowerCase().replace(/\W+(?!$)/g, '-')}`
-                "
-                class="card-footer-item"
-              >
+              <nuxt-link :to="`/post/${post.link}`" class="card-footer-item">
                 Read More
               </nuxt-link>
             </footer>

@@ -14,11 +14,17 @@ export interface Post {
 
 interface State {
   posts: Post[];
+  status: string;
+  user: object;
+  token: string;
 }
 
 export const state = (): State => {
   return {
-    posts: []
+    posts: [],
+    status: "",
+    user: {},
+    token: ""
   };
 };
 
@@ -37,5 +43,8 @@ export const actions: ActionTree<any, any> = {
   },
   bindPosts: firestoreAction(({ bindFirestoreRef }) => {
     return bindFirestoreRef("posts", db.collection("posts"));
-  })
+  }),
+  login({ commit }, user) {
+    return new Promise((resolve, reject) => {});
+  }
 };

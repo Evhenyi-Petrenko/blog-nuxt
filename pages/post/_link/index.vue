@@ -16,9 +16,9 @@
 <script>
 import { Post } from "@/store";
 export default {
-  // validate({ params }) {
-  // return /^\d+$/.test(params.link);
-  // },
+  validate({ params }) {
+    return /^\d+$/.test(params.link);
+  },
   head() {
     return {
       title: this.post.title,

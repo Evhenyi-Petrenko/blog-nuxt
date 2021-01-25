@@ -14,18 +14,11 @@
 </template>
 
 <script>
+import { Post } from "@/store";
 export default {
-  validate({ params }) {
-    return /^\d+$/.test(params.id);
-  },
-  asyncData({ params }, callback) {
-    let post = posts.find(post => post.id === parseInt(params.id));
-    if (post) {
-      callback(null, { post });
-    } else {
-      callback({ statusCode: 404, message: "Post not found" });
-    }
-  },
+  // validate({ params }) {
+  // return /^\d+$/.test(params.link);
+  // },
   head() {
     return {
       title: this.post.title,
@@ -37,6 +30,15 @@ export default {
         }
       ]
     };
+  },
+  asyncData({ store, params }, callback) {
+    let post = store.state.posts.find(post => post.link === params.link);
+    console.log(params);
+    if (post) {
+      callback(null, { post });
+    } else {
+      callback({ statusCode: 404, message: "Post not found" });
+    }
   }
 };
 </script>

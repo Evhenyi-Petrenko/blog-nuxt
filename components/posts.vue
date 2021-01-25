@@ -5,15 +5,11 @@
       <h1 class="title has-text-centered">
         Recent Posts.
       </h1>
-      <div v-if="!postForm">
-        <h3 @click="postForm = true">Add Post</h3>
-      </div>
-      <div v-else class="postPopup">
-        <h3 @click="postForm = false">Close Form</h3>
-        <div @click="addPost()">Push post</div>
+      <div>
+        <h3 @click="addPost()">Add Post</h3>
       </div>
       <div class="columns">
-        <div class="column" v-for="post in posts" :key="post.id">
+        <div class="column" v-for="post in posts" :key="post.link">
           <div class="card">
             <header class="card-header">
               <p class="card-header-title">
@@ -50,6 +46,7 @@
 import { db } from "~/firebasee/index.ts";
 import Vue from "vue";
 import faker from "faker";
+import { Post } from "@/store";
 
 export default Vue.extend({
   // async fetch({ store }) {
@@ -58,28 +55,30 @@ export default Vue.extend({
   // },
   data() {
     return {
-      posts: this.$store.state.posts,
-      postForm: false
+      // posts: this.$store.state.posts,
     };
+  },
+  computed: {
+    posts(): Post[] {
+      return this.$store.state.posts;
+    }
   },
   methods: {
     addPost() {
+      const title = faker.name.title();
       let newPost = {
-        title: faker.name.title(),
+        title,
         summary: faker.random.words(),
         content: faker.lorem.text(),
         author: faker.internet.email(),
-        published: faker.date.month()
+        published: faker.date.month(),
+        link: title.toLowerCase().replace(/\W+(?!$)/g, "-")
       };
       const id = db.collection("posts").doc().id;
       db.collection("posts")
         .doc(id)
         .set(newPost);
-    },
-    computed: {
-      posts() {}
-    },
-    mounted() {}
+    }
   }
 });
 </script>

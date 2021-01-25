@@ -29,7 +29,14 @@
     <Nuxt />
   </div>
 </template>
-
+<script lang="ts">
+import Vue from "vue";
+export default Vue.extend({
+  async mounted() {
+    await this.$store.dispatch("bindPosts");
+  }
+});
+</script>
 <style>
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",

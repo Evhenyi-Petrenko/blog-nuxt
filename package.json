@@ -12,10 +12,13 @@
     "@nuxt/typescript-runtime": "^2.0.1",
     "bootstrap": "^4.5.3",
     "bootstrap-vue": "^2.21.2",
+    "cookie-universal-nuxt": "^2.1.4",
     "core-js": "^3.8.2",
     "direct-vuex": "^0.12.0",
     "faker": "^5.1.0",
     "firebase": "^8.2.4",
+    "firebase-admin": "^9.4.2",
+    "firebaseui": "^4.7.1",
     "nuxt": "^2.14.12",
     "vuexfire": "^3.2.5"
   },

@@ -22,7 +22,7 @@
             exact
             >About</nuxt-link
           >
-          <nuxt-link active-class="is-active" to="/admin">Admin</nuxt-link>
+          <login />
         </div>
       </div>
     </nav>
@@ -32,9 +32,13 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
+import Login from "~/components/login.vue";
 export default Vue.extend({
   async mounted() {
     await this.$store.dispatch("bindPosts");
+  },
+  components: {
+    Login
   }
 });
 </script>

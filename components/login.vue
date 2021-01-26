@@ -1,38 +1,49 @@
 <template>
-  <div>
-    <form class="login" @submit.prevent="login">
-      <h1>Sign in</h1>
-      <label>Email</label>
-      <input required v-model="email" type="email" placeholder="Name" />
-      <label>Password</label>
-      <input
-        required
-        v-model="password"
-        type="password"
-        placeholder="Password"
-      />
-      <hr />
-      <button type="submit">Login</button>
+  <div class="loginForms">
+    <form @submit.prevent v-if="!reg">
+      <h2>Sing In</h2>
+      <input v-model="email" type="email" placeholder="Email" />
+      <input v-model="password" type="password" placeholder="Password" />
+      <button type="submit" @click="singin()">Sing IN</button>
+      <button type="submit" @click="reg = true">Or Sing Up</button>
+    </form>
+    <form @submit.prevent v-if="reg">
+      <h2>Sing Up</h2>
+      <input v-model="email" type="email" placeholder="Email" />
+      <input v-model="password" type="password" placeholder="Password" />
+      <button type="submit" @click="singup()">Sing UP</button>
+      <button type="submit" @click="reg = false">Or Sing In</button>
     </form>
   </div>
 </template>
 <script lang="ts">
 import Vue from "vue";
+import { auth } from "~/firebasee";
+
 export default Vue.extend({
   data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      reg: false
     };
   },
   methods: {
-    login: function() {
-      let email = this.email;
-      let password = this.password;
-      this.$store
-        .dispatch("login", { email, password })
-        .then(() => this.$router.push("/"))
-        .catch(err => console.log(err));
+    async singup() {
+      const user = await auth.createUserWithEmailAndPassword(
+        this.email,
+        this.password
+      );
+    },
+    async singin() {
+      const user = await auth.signInWithEmailAndPassword(
+        this.email,
+        this.password
+      );
+      const token = await auth.currentUser?.getIdToken();
+
+      this.$cookies.set("session", token);
+      console.log(this.$store.state.token);
     }
   }
 });

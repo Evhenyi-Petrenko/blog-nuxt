@@ -12,9 +12,17 @@ if (!firebase.apps.length) {
 } else {
   firebase.app();
 }
+if (process.server) {
+  const admin = require("firebase-admin");
+  const serviceAccount = require("~/adminKey.json");
+  admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount)
+  });
+} else {
+}
 
 export const db = firebase.firestore();
-
+export const auth = firebase.auth();
 interface Post {
   id: number;
   title: string;

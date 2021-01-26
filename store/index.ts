@@ -15,16 +15,14 @@ export interface Post {
 interface State {
   posts: Post[];
   status: string;
-  user: object;
-  token: string;
+  user: object | null;
 }
 
 export const state = (): State => {
   return {
     posts: [],
     status: "",
-    user: {},
-    token: ""
+    user: null
   };
 };
 
@@ -39,12 +37,18 @@ export const actions: ActionTree<any, any> = {
   async nuxtServerInit({ commit }) {
     const postsData = await db.collection("posts").get();
     const posts = postsData.docs.map(post => post.data());
+
     commit("setPosts", posts);
+
+    const token = this.$cookies.get("session");
+
+    // Тут проверяем токен на валидность
+    // Отправляя его на наш сервер
+
+    if (token) {
+    }
   },
   bindPosts: firestoreAction(({ bindFirestoreRef }) => {
     return bindFirestoreRef("posts", db.collection("posts"));
-  }),
-  login({ commit }, user) {
-    return new Promise((resolve, reject) => {});
-  }
+  })
 };

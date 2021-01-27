@@ -18,7 +18,7 @@
 </template>
 <script lang="ts">
 import Vue from "vue";
-import { auth } from "~/firebasee";
+import { auth } from "~/plugins/firebase.ts";
 
 export default Vue.extend({
   data() {
@@ -43,7 +43,6 @@ export default Vue.extend({
       const token = await auth.currentUser?.getIdToken();
 
       this.$cookies.set("session", token);
-      console.log(this.$store.state.token);
     }
   }
 });

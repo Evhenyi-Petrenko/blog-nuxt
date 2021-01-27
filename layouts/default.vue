@@ -7,22 +7,36 @@
       aria-label="main navigation"
     >
       <div class="container">
-        <div class="navbar-start">
-          <nuxt-link
-            active-class="is-active"
-            to="/"
-            class="navbar-item is-tab"
-            exact
-            >Home</nuxt-link
-          >
-          <nuxt-link
-            active-class="is-active"
-            to="/about"
-            class="navbar-item is-tab"
-            exact
-            >About</nuxt-link
-          >
-          <login />
+        <div class="navbar-start w-100">
+          <div class="d-flex justify-content-between">
+            <div class="nuxt-link">
+              <nuxt-link
+                active-class="is-active"
+                to="/"
+                class="navbar-item is-tab"
+                exact
+                >Home</nuxt-link
+              >
+              <nuxt-link
+                active-class="is-active"
+                to="/about"
+                class="navbar-item is-tab"
+                exact
+                >About</nuxt-link
+              >
+              <nuxt-link
+                active-class="is-active"
+                to="/admin"
+                class="navbar-item is-tab"
+                exact
+                >Admin</nuxt-link
+              >
+            </div>
+            <div class="singForm">
+              <login v-if="this.$cookies.get('session')" />
+              <logout v-else />
+            </div>
+          </div>
         </div>
       </div>
     </nav>
@@ -33,12 +47,14 @@
 <script lang="ts">
 import Vue from "vue";
 import Login from "~/components/login.vue";
+import Logout from "~/components/logout.vue";
 export default Vue.extend({
   async mounted() {
     await this.$store.dispatch("bindPosts");
   },
   components: {
-    Login
+    Login,
+    Logout
   }
 });
 </script>
@@ -89,5 +105,9 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+.login,
+.logout {
+  display: inline-block;
 }
 </style>

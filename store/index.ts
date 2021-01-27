@@ -1,5 +1,5 @@
 import { defineModule } from "direct-vuex";
-import { db } from "~/firebasee/index.ts";
+import { db } from "~/plugins/firebase";
 import { ActionTree } from "vuex";
 import { vuexfireMutations, firestoreAction } from "vuexfire";
 

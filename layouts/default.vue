@@ -33,11 +33,12 @@
               >
             </div>
             <div class="singForm">
-              <login v-if="this.$cookies.get('session')" />
+              <login v-if="!session" />
               <logout v-else />
             </div>
           </div>
         </div>
+        <div class="checkUser"></div>
       </div>
     </nav>
     <!-- /navigation -->
@@ -48,13 +49,28 @@
 import Vue from "vue";
 import Login from "~/components/login.vue";
 import Logout from "~/components/logout.vue";
+import { User } from "@/store";
 export default Vue.extend({
+  data() {
+    return {
+      // posts: this.$store.state.posts,
+    };
+  },
   async mounted() {
     await this.$store.dispatch("bindPosts");
   },
   components: {
     Login,
     Logout
+  },
+  computed: {
+    session(): string {
+      return this.$cookies.get("session");
+    },
+    user(): User[] {
+      console.log(this.$store.state.users);
+      return this.$store.state.users;
+    }
   }
 });
 </script>

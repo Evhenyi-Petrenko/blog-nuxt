@@ -1,14 +1,12 @@
 <template>
   <div class="loginForms">
     <form @submit.prevent v-if="!reg">
-      <h2>Sing In</h2>
       <input v-model="email" type="email" placeholder="Email" />
       <input v-model="password" type="password" placeholder="Password" />
       <button type="submit" @click="singin()">Sing IN</button>
       <button type="submit" @click="reg = true">Or Sing Up</button>
     </form>
     <form @submit.prevent v-if="reg">
-      <h2>Sing Up</h2>
       <input v-model="email" type="email" placeholder="Email" />
       <input v-model="password" type="password" placeholder="Password" />
       <button type="submit" @click="singup()">Sing UP</button>
@@ -21,6 +19,7 @@ import Vue from "vue";
 import { auth } from "~/plugins/firebase.ts";
 
 export default Vue.extend({
+  middleware: ["checkAuth"],
   data() {
     return {
       email: "",

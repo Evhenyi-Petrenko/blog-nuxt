@@ -39,10 +39,6 @@ import Vue from "vue";
 import { Post } from "@/store";
 
 export default Vue.extend({
-  // async fetch({ store }) {
-  //   const posts = await store.dispatch("fetch");
-  //   this.posts = posts;
-  // },
   data() {
     return {
       // posts: this.$store.state.posts,

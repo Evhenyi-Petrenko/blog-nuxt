@@ -21,10 +21,9 @@ if (process.server) {
   }
   db = admin.firestore();
   auth = admin.auth();
-} else if (!firebase.apps.length) {
-  firebase.initializeApp(defaultAppConfig, "client");
+} else {
+  if (!firebase.apps.length) firebase.initializeApp(defaultAppConfig);
+  else firebase.app();
   db = firebase.firestore();
   auth = firebase.auth();
-} else {
-  firebase.app();
 }

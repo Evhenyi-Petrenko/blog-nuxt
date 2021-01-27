@@ -2,6 +2,7 @@
 <template>
   <div>
     <!-- ... -->
+    <div></div>
     <posts />
   </div>
 </template>

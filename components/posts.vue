@@ -47,10 +47,7 @@ export default Vue.extend({
       return this.$store.state.posts;
     }
   },
-  methods: {},
-  mounted() {
-    console.log(this.$store.state.user.role);
-  }
+  methods: {}
 });
 </script>
 <style scoped>

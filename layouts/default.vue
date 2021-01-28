@@ -29,6 +29,7 @@
                 to="/admin"
                 class="navbar-item is-tab"
                 exact
+                v-if="this.$store.state.user.role === 'admin'"
                 >Admin</nuxt-link
               >
             </div>
@@ -38,7 +39,6 @@
             </div>
           </div>
         </div>
-        <div class="checkUser"></div>
       </div>
     </nav>
     <!-- /navigation -->

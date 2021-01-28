@@ -19,7 +19,6 @@ import Vue from "vue";
 import { auth } from "~/plugins/firebase.ts";
 
 export default Vue.extend({
-  middleware: ["checkAuth"],
   data() {
     return {
       email: "",

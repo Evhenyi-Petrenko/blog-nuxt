@@ -1,4 +1,4 @@
-import { defineModule } from "direct-vuex";
+import { auth } from "~/plugins/firebase";
 import { db } from "~/plugins/firebase";
 import { ActionTree } from "vuex";
 import { vuexfireMutations, firestoreAction } from "vuexfire";
@@ -12,21 +12,24 @@ export interface Post {
   link: string;
 }
 export interface User {
-  admin: boolean;
+  id: string;
   name: string;
+  role: string;
 }
 
 interface State {
   posts: Post[];
   status: string;
   users: object | null;
+  user: object | null;
 }
 
 export const state = (): State => {
   return {
     posts: [],
     status: "",
-    users: null
+    users: null,
+    user: {}
   };
 };
 
@@ -37,6 +40,9 @@ export const mutations = {
   },
   setUsers(state: State, users: User[]) {
     state.users = users;
+  },
+  setUser(state: State, user: User[]) {
+    state.user = user;
   }
 };
 
@@ -49,7 +55,16 @@ export const actions: ActionTree<any, any> = {
     const token = this.$cookies.get("session");
     // Тут проверяем токен на валидность
     // Отправляя его на наш сервер
+
     if (token) {
+      const decodeToken = await auth.verifyIdToken(token);
+      const user = (
+        await db
+          .collection("user")
+          .doc(decodeToken.uid)
+          .get()
+      ).data();
+      commit("setUser", user);
     }
 
     const userData = await db.collection("user").get();

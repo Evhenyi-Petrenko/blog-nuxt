@@ -1,7 +1,5 @@
-import { auth } from "~/plugins/firebase.ts";
-
 export default function({ redirect }) {
-  if (!auth) {
+  if (this.$store.state.user.role !== "admin") {
     redirect("/");
   }
 }

@@ -7,7 +7,7 @@
         <input v-model="summary" placeholder="Summary" />
         <textarea v-model="content" placeholder="Content"></textarea>
         <input v-model="author" placeholder="Author" />
-        <input v-model="published" placeholder="Published" />
+
         <button class="btn btn-primary" @click="addPost()">Add Post</button>
       </form>
     </div>
@@ -26,8 +26,9 @@ textarea {
 <script lang="ts">
 import { db } from "~/plugins/firebase.ts";
 import Vue from "vue";
-
+import moment from "moment";
 export default Vue.extend({
+  middleware: ["checkAuth"],
   data() {
     return {
       title: "",
@@ -46,7 +47,7 @@ export default Vue.extend({
         summary: this.summary,
         content: this.content,
         author: this.author,
-        published: this.published,
+        published: moment().valueOf(),
         link: title.toLowerCase().replace(/\W+(?!$)/g, "-")
       };
       const id = db.collection("posts").doc().id;
@@ -54,6 +55,9 @@ export default Vue.extend({
         .doc(id)
         .set(newPost);
     }
+  },
+  mounted() {
+    console.log();
   }
 });
 </script>

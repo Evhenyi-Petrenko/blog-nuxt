@@ -7,18 +7,18 @@
       <br />
       <h4 class="title is-marginless">
         by <strong>{{ post.author }}</strong> at
-        <strong>{{ post.published }}</strong>
+        <strong>{{ parseDate(post.published) }}</strong>
       </h4>
     </div>
   </div>
 </template>
 
 <script>
-import { Post } from "@/store";
+import moment from "moment";
 export default {
-  validate({ params }) {
-    return /^\d+$/.test(params.link);
-  },
+  // validate({ params }) {
+  // return /^\d+$/.test(params.link);
+  // },
   head() {
     return {
       title: this.post.title,
@@ -31,6 +31,7 @@ export default {
       ]
     };
   },
+
   asyncData({ store, params }, callback) {
     let post = store.state.posts.find(post => post.link === params.link);
     console.log(params);
@@ -38,6 +39,13 @@ export default {
       callback(null, { post });
     } else {
       callback({ statusCode: 404, message: "Post not found" });
+    }
+    return {};
+  },
+
+  methods: {
+    parseDate(date) {
+      return moment(date).format("MM-DD-YYYY");
     }
   }
 };

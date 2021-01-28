@@ -8,7 +8,7 @@ export interface Post {
   summary: string;
   content: string;
   author: string;
-  published: string;
+  published: number;
   link: string;
 }
 export interface User {
@@ -48,7 +48,10 @@ export const mutations = {
 
 export const actions: ActionTree<any, any> = {
   async nuxtServerInit({ commit }) {
-    const postsData = await db.collection("posts").get();
+    const postsData = await db
+      .collection("posts")
+      .orderBy("published", "desc")
+      .get();
     const posts = postsData.docs.map(post => post.data());
 
     commit("setPosts", posts);
@@ -66,9 +69,7 @@ export const actions: ActionTree<any, any> = {
       ).data();
       commit("setUser", user);
     }
-
     const userData = await db.collection("user").get();
-
     const users = userData.docs.map(users => users.data());
 
     commit("setUsers", users);

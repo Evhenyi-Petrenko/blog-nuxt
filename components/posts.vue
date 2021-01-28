@@ -18,7 +18,8 @@
                 {{ post.summary }}
                 <br />
                 <small>
-                  by <strong>{{ post.author }}</strong> \\ {{ post.published }}
+                  by <strong>{{ post.author }}</strong> \\
+                  {{ parseDate(post.published) }}
                 </small>
               </div>
             </div>
@@ -37,7 +38,7 @@
 <script lang="ts">
 import Vue from "vue";
 import { Post } from "@/store";
-
+import moment from "moment";
 export default Vue.extend({
   data() {
     return {};
@@ -47,7 +48,11 @@ export default Vue.extend({
       return this.$store.state.posts;
     }
   },
-  methods: {}
+  methods: {
+    parseDate(date: any) {
+      return moment(date).format("MM-DD-YYYY");
+    }
+  }
 });
 </script>
 <style scoped>

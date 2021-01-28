@@ -1,5 +1,5 @@
-export default function({ redirect }) {
-  if (this.$store.state.user.role !== "admin") {
+export default function({ store, redirect }) {
+  if (store.state.user.role !== "admin") {
     redirect("/");
   }
 }

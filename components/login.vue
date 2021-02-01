@@ -3,14 +3,24 @@
     <form @submit.prevent v-if="!reg">
       <input v-model="email" type="email" placeholder="Email" />
       <input v-model="password" type="password" placeholder="Password" />
-      <button type="submit" @click="singin()">Sing IN</button>
-      <button type="submit" @click="reg = true">Or Sing Up</button>
+      <button class="btn btn-secondary" type="submit" @click="singin()">
+        Sing IN
+      </button>
+      Or
+      <button class="btn btn-secondary" type="submit" @click="reg = true">
+        Sing Up
+      </button>
     </form>
     <form @submit.prevent v-if="reg">
       <input v-model="email" type="email" placeholder="Email" />
       <input v-model="password" type="password" placeholder="Password" />
-      <button type="submit" @click="singup()">Sing UP</button>
-      <button type="submit" @click="reg = false">Or Sing In</button>
+      <button class="btn btn-secondary" type="submit" @click="singup()">
+        Sing UP
+      </button>
+      Or
+      <button class="btn btn-secondary" type="submit" @click="reg = false">
+        Sing In
+      </button>
     </form>
   </div>
 </template>

@@ -32,10 +32,13 @@
                 v-if="this.$store.state.user.role === 'admin'"
                 >Admin</nuxt-link
               >
-            </div>
-            <div class="singForm">
-              <login v-if="!session" />
-              <logout v-else />
+              <nuxt-link
+                active-class="is-active"
+                to="/logpage"
+                class="navbar-item is-tab"
+                exact
+                >Log Page</nuxt-link
+              >
             </div>
           </div>
         </div>

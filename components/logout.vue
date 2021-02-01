@@ -1,6 +1,8 @@
 <template>
   <div class="logout">
-    <button type="submit" @click="signOut()">Log Out</button>
+    <button class="btn btn-secondary" type="submit" @click="signOut()">
+      Log Out
+    </button>
   </div>
 </template>
 <script lang="ts">
@@ -15,6 +17,10 @@ export default Vue.extend({
       const user = await auth.signOut();
       this.$cookies.removeAll();
     }
+  },
+  async mounted() {
+    const user = await auth.signOut();
+    this.$cookies.removeAll();
   }
 });
 </script>
